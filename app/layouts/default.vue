@@ -9,11 +9,12 @@
 
                 <!-- LOGO -->
                 <NuxtLink to="/" class="marca" aria-label="Colleccionista, inici">
-                    <svg class="marca-icona" viewBox="0 0 34 34" aria-hidden="true">
-                        <rect x="4" y="9" width="7" height="21" rx="1.5" class="llom llom-a" />
-                        <rect x="13.5" y="3" width="7" height="27" rx="1.5" class="llom llom-b" />
-                        <rect x="23" y="12" width="7" height="18" rx="1.5" class="llom llom-c" />
-                        <rect x="2" y="31" width="30" height="2" rx="1" class="base" />
+                    <svg class="marca-icona" viewBox="0 0 40 40" aria-hidden="true">
+                        <circle cx="20" cy="20" r="18" class="ball-fons" />
+                        <path d="M2 20a18 18 0 0 1 36 0z" class="ball-dalt" />
+                        <rect x="2" y="18.5" width="36" height="3" class="ball-banda" />
+                        <circle cx="20" cy="20" r="6" class="ball-centre" />
+                        <circle cx="20" cy="20" r="2.5" class="ball-punt" />
                     </svg>
                     <span class="marca-text">
                         <span class="marca-nom">Colleccionista</span>
@@ -48,6 +49,7 @@
                 </div>
 
                 <nav class="peu-menu" aria-label="Navegació del peu">
+                    <p class="peu-subtitol">Navegació</p>
                     <NuxtLink to="/" class="footer-enlace">Inici</NuxtLink>
                     <NuxtLink to="/search" class="footer-enlace">Cerca</NuxtLink>
                     <NuxtLink to="/favorites" class="footer-enlace">Preferits</NuxtLink>
@@ -69,12 +71,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600&display=swap');
 
 :root {
-    --tinta: #10312c;
-    --tinta-fosca: #0b231f;
-    --llauto: #d9a441;
+    --blau: #202c3c;
+    --blau-fosc: #101820;
+    --groc: #ffcb05;
+    --groc-clar: #ffe066;
+    --vermell: #e63946;
     --paper: #f4f6f3;
-    --text-clar: #f1f5f2;
-    --text-suau: #a9c0b8;
+    --text-clar: #f1f5f9;
+    --text-suau: #9fb0c4;
 }
 
 body {
@@ -96,9 +100,9 @@ main {
 }
 
 a:focus-visible {
-    outline: 2px solid var(--llauto);
+    outline: 2px solid var(--groc);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 6px;
 }
 
 /* SALTA AL CONTINGUT (accessibilitat) */
@@ -106,8 +110,8 @@ a:focus-visible {
     position: absolute;
     left: 1rem;
     top: -4rem;
-    background: var(--llauto);
-    color: var(--tinta-fosca);
+    background: var(--groc);
+    color: var(--blau);
     padding: 0.5rem 1rem;
     border-radius: 6px;
     z-index: 20;
@@ -124,8 +128,18 @@ a:focus-visible {
     position: sticky;
     top: 0;
     z-index: 10;
-    background-color: var(--tinta);
-    border-bottom: 2px solid var(--llauto);
+    background: linear-gradient(135deg, var(--blau), var(--blau-fosc));
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+
+.capcalera::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--groc), var(--groc-clar), var(--groc));
 }
 
 .capcalera-interior {
@@ -146,15 +160,21 @@ a:focus-visible {
 }
 
 .marca-icona {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
     flex-shrink: 0;
+    transition: transform 0.4s ease;
 }
 
-.llom-a { fill: #7fa99b; }
-.llom-b { fill: var(--llauto); }
-.llom-c { fill: #cfe0d8; }
-.base   { fill: var(--llauto); opacity: 0.45; }
+.marca:hover .marca-icona {
+    transform: rotate(180deg);
+}
+
+.ball-fons   { fill: #fff; }
+.ball-dalt   { fill: var(--vermell); }
+.ball-banda  { fill: var(--blau-fosc); }
+.ball-centre { fill: #fff; stroke: var(--blau-fosc); stroke-width: 3; }
+.ball-punt   { fill: var(--groc); }
 
 .marca-text {
     display: flex;
@@ -167,7 +187,7 @@ a:focus-visible {
     font-weight: 600;
     font-size: 1.45rem;
     letter-spacing: -0.01em;
-    color: var(--text-clar);
+    color: var(--groc);
 }
 
 .marca-lema {
@@ -179,51 +199,47 @@ a:focus-visible {
 .menu {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.4rem;
 }
 
 .nav-enlace {
-    position: relative;
-    color: var(--text-suau);
+    color: var(--text-clar);
     text-decoration: none;
     font-weight: 500;
-    padding: 0.55rem 0.9rem;
-    transition: color 0.2s;
-}
-
-.nav-enlace::after {
-    content: '';
-    position: absolute;
-    left: 0.9rem;
-    right: 0.9rem;
-    bottom: 0.2rem;
-    height: 2px;
-    background-color: var(--llauto);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.25s ease;
+    padding: 0.5rem 1.1rem;
+    border-radius: 30px;
+    transition: background-color 0.25s, color 0.25s, transform 0.25s;
 }
 
 .nav-enlace:hover {
-    color: var(--text-clar);
+    background-color: rgba(255, 203, 5, 0.15);
+    color: var(--groc);
 }
 
 /* PÀGINA ACTIVA (Inici només s'activa a "/") */
 .nav-enlace.router-link-exact-active,
 .nav-enlace.router-link-active:not([href='/']) {
-    color: var(--text-clar);
-}
-
-.nav-enlace.router-link-exact-active::after,
-.nav-enlace.router-link-active:not([href='/'])::after {
-    transform: scaleX(1);
+    background-color: var(--groc);
+    color: var(--blau);
+    font-weight: 600;
 }
 
 /* FOOTER */
 .peu {
-    background-color: var(--tinta-fosca);
-    color: var(--text-suau);
+    position: relative;
     margin-top: auto;
+    background: linear-gradient(135deg, var(--blau), var(--blau-fosc));
+    color: var(--text-suau);
+}
+
+.peu::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--groc), var(--groc-clar), var(--groc));
 }
 
 .peu-interior {
@@ -239,8 +255,8 @@ a:focus-visible {
 .peu-titol {
     font-family: 'Fraunces', Georgia, serif;
     font-weight: 600;
-    font-size: 1.25rem;
-    color: var(--text-clar);
+    font-size: 1.35rem;
+    color: var(--groc);
     margin: 0 0 0.4rem;
 }
 
@@ -251,21 +267,32 @@ a:focus-visible {
 
 .peu-menu {
     display: flex;
-    gap: 1.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.peu-subtitol {
+    margin: 0 0 0.2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-clar);
 }
 
 .footer-enlace {
     color: var(--text-suau);
     text-decoration: none;
-    transition: color 0.2s;
+    transition: color 0.2s, transform 0.2s;
 }
 
 .footer-enlace:hover {
-    color: var(--llauto);
+    color: var(--groc);
+    transform: translateX(4px);
 }
 
 .peu-copy {
-    border-top: 1px solid rgba(169, 192, 184, 0.2);
+    border-top: 1px solid rgba(255, 203, 5, 0.15);
     padding: 1rem 0;
     font-size: 0.85rem;
     text-align: center;
@@ -276,25 +303,25 @@ a:focus-visible {
     .capcalera-interior {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.4rem;
+        gap: 0.6rem;
     }
 
     .menu {
-        margin-left: -0.9rem;
+        margin-left: -0.4rem;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .nav-enlace,
-    .nav-enlace::after,
-    .footer-enlace {
+    .footer-enlace,
+    .marca-icona {
         transition: none;
     }
 }
+
 .container {
     max-width: 100%;
     padding-left: 2rem;
     padding-right: 2rem;
 }
-
 </style>

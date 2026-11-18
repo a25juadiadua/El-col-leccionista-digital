@@ -5,7 +5,7 @@ const api = axios.create({
 })
 
 export async function getPokemon() {
-    const response = await api.get('pokemon')
+    const response = await api.get('pokemon?limit=10000')
     return response.data
 }
 
